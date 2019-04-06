@@ -71,3 +71,12 @@ The DID subject is comprised of:
 5. verifying node checks document 'proof' attribute using lnd verifymessage
 ### verify the revokable status of the credential
 6. verifying node checks that the channel is still active
+
+# API
+## Issuer
+getCredential - Accepts an unverified credential, confirms that 'id' supplied by the provider currently has a channel open with the issuer.  Located in boltathon/issuerServer.js
+Test api with this, requires credential in json file.
+```
+curl -vX POST 157.230.110.159:3001/getCredential -d @tempExampleTemplate.json --header "Content-Type: application/json"
+```
+
