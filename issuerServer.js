@@ -27,14 +27,14 @@ async function fetchChannelList() {
     return stdout;
 }
 
-app.post('/getCredential', function(request, response){
+app.post('/getCredential', async function(request, response){
     let unverifiedChannelId = request.body.channelId;
     console.log(request.body);      // your JSON
 
     const util = require('util');
     
 
-    let channelList = fetchChannelList();
+    let channelList = await fetchChannelList();
 
     let signedCredential = request.body;
     response.send(channelList);    // echo the result back but signed
