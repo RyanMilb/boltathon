@@ -17,6 +17,8 @@ $(document).ready(function () {
         $.getJSON('tempExampleTemplate.json', function (data) {
             templateJson = data;
             templateJson.id = 'did:ln:' + dataObj['publicNodeId'];
+            templateJson.channelId = dataObj['channelId'];
+            
             console.log(templateJson);
             //download Updated credential
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(templateJson));
