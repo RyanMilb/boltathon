@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bitcoin-lightning-nodejs": "^1.2.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "grpc": "^1.19.0",

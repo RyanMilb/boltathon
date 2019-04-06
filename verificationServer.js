@@ -32,27 +32,28 @@ process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 // var lnrpc = lnrpcDescriptor.lnrpc;
 // var lightning = new lnrpc.Lightning('localhost:10009', credentials);
 
-let base64EncodedCert = 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUI5ekNDQVoyZ0F3SUJBZ0lSQVArajUvcU9XVmV2d0FoU2tTRnRjYTR3Q2dZSUtvWkl6ajBFQXdJd05URWYKTUIwR0ExVUVDaE1XYkc1a0lHRjFkRzluWlc1bGNtRjBaV1FnWTJWeWRERVNNQkFHQTFVRUF4TUpZbTlzZEdGMAphRzl1TUI0WERURTVNRFF3TkRFNU1qYzFOMW9YRFRJd01EVXlPVEU1TWpjMU4xb3dOVEVmTUIwR0ExVUVDaE1XCmJHNWtJR0YxZEc5blpXNWxjbUYwWldRZ1kyVnlkREVTTUJBR0ExVUVBeE1KWW05c2RHRjBhRzl1TUZrd0V3WUgKS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRWgwUS83c3pZYnZpOWgrSFNqVHBxUnJ1bnJlVVZoVytEWTZqcgpDQ1BBdFpMNXFTTlZ0TFBRQ3dnNUI1aTllUXprOTdYT2t2SjVNdDRybVBnS045aVNYS09CalRDQmlqQU9CZ05WCkhROEJBZjhFQkFNQ0FxUXdEd1lEVlIwVEFRSC9CQVV3QXdFQi96Qm5CZ05WSFJFRVlEQmVnZ2xpYjJ4MFlYUm8KYjI2Q0NXeHZZMkZzYUc5emRJSUVkVzVwZUlJS2RXNXBlSEJoWTJ0bGRJY0Vmd0FBQVljUUFBQUFBQUFBQUFBQQpBQUFBQUFBQUFZY0VuZVp1bjRjRUNoTUFCWWNRL29BQUFBQUFBQURzK0dmLy9pZVYzVEFLQmdncWhrak9QUVFECkFnTklBREJGQWlBQzA2S00rVUxLQzA5UjlZd2VFNStPVjJjOGIrWHVlcDRQQjRadDB5ZE9oQUloQUljZElRc1gKR1dzM3MreXBKVXZIeXZkbG5ubkE4SHlSdDNDNXRNN2h5MkJSCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K';
-let base64EncodedMacaroon = 'AgEDbG5kAs8BAwoQuF600/9rMWnHPtgoVmmazhIBMBoWCgdhZGRyZXNzEgRyZWFkEgV3cml0ZRoTCgRpbmZvEgRyZWFkEgV3cml0ZRoXCghpbnZvaWNlcxIEcmVhZBIFd3JpdGUaFgoHbWVzc2FnZRIEcmVhZBIFd3JpdGUaFwoIb2ZmY2hhaW4SBHJlYWQSBXdyaXRlGhYKB29uY2hhaW4SBHJlYWQSBXdyaXRlGhQKBXBlZXJzEgRyZWFkEgV3cml0ZRoSCgZzaWduZXISCGdlbmVyYXRlAAAGINnL2Afi1j3mtVMmyGbaUdYjaS55nrWDaAiDaJHwqmGu';
-const lnService = require('ln-service');
+// let base64EncodedCert = 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUI5ekNDQVoyZ0F3SUJBZ0lSQVArajUvcU9XVmV2d0FoU2tTRnRjYTR3Q2dZSUtvWkl6ajBFQXdJd05URWYKTUIwR0ExVUVDaE1XYkc1a0lHRjFkRzluWlc1bGNtRjBaV1FnWTJWeWRERVNNQkFHQTFVRUF4TUpZbTlzZEdGMAphRzl1TUI0WERURTVNRFF3TkRFNU1qYzFOMW9YRFRJd01EVXlPVEU1TWpjMU4xb3dOVEVmTUIwR0ExVUVDaE1XCmJHNWtJR0YxZEc5blpXNWxjbUYwWldRZ1kyVnlkREVTTUJBR0ExVUVBeE1KWW05c2RHRjBhRzl1TUZrd0V3WUgKS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRWgwUS83c3pZYnZpOWgrSFNqVHBxUnJ1bnJlVVZoVytEWTZqcgpDQ1BBdFpMNXFTTlZ0TFBRQ3dnNUI1aTllUXprOTdYT2t2SjVNdDRybVBnS045aVNYS09CalRDQmlqQU9CZ05WCkhROEJBZjhFQkFNQ0FxUXdEd1lEVlIwVEFRSC9CQVV3QXdFQi96Qm5CZ05WSFJFRVlEQmVnZ2xpYjJ4MFlYUm8KYjI2Q0NXeHZZMkZzYUc5emRJSUVkVzVwZUlJS2RXNXBlSEJoWTJ0bGRJY0Vmd0FBQVljUUFBQUFBQUFBQUFBQQpBQUFBQUFBQUFZY0VuZVp1bjRjRUNoTUFCWWNRL29BQUFBQUFBQURzK0dmLy9pZVYzVEFLQmdncWhrak9QUVFECkFnTklBREJGQWlBQzA2S00rVUxLQzA5UjlZd2VFNStPVjJjOGIrWHVlcDRQQjRadDB5ZE9oQUloQUljZElRc1gKR1dzM3MreXBKVXZIeXZkbG5ubkE4SHlSdDNDNXRNN2h5MkJSCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K';
+// let base64EncodedMacaroon = 'AgEDbG5kAs8BAwoQuF600/9rMWnHPtgoVmmazhIBMBoWCgdhZGRyZXNzEgRyZWFkEgV3cml0ZRoTCgRpbmZvEgRyZWFkEgV3cml0ZRoXCghpbnZvaWNlcxIEcmVhZBIFd3JpdGUaFgoHbWVzc2FnZRIEcmVhZBIFd3JpdGUaFwoIb2ZmY2hhaW4SBHJlYWQSBXdyaXRlGhYKB29uY2hhaW4SBHJlYWQSBXdyaXRlGhQKBXBlZXJzEgRyZWFkEgV3cml0ZRoSCgZzaWduZXISCGdlbmVyYXRlAAAGINnL2Afi1j3mtVMmyGbaUdYjaS55nrWDaAiDaJHwqmGu';
+// const lnService = require('ln-service');
 
-const lnd = lnService.lightningDaemon({
-  cert: base64EncodedCert,
-  macaroon: base64EncodedMacaroon,
-  socket: '127.0.0.1:10009',
+// const lnd = lnService.lightningDaemon({
+//   cert: base64EncodedCert,
+//   macaroon: base64EncodedMacaroon,
+//   socket: '127.0.0.1:10009',
+// });
+
+// lnService.getWalletInfo({lnd}, (error, result) => {
+//   console.log(result);
+//   console.log(error);
+// });
+
+var lightning = require("bitcoin-lightning-nodejs");
+var request = {
+  msg: msg
+};
+lightning.ln.signMessage(request, function(err, response) {
+  console.log(response);
 });
-
-lnService.getWalletInfo({lnd}, (error, result) => {
-  console.log(result);
-  console.log(error);
-});
-
-async function fetchChannelList() {
-    const { stdout, stderr } = await exec('lncli --network=testnet listchannels');
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
-    return stdout;
-}
 
 async function sendChallenge(credential) {
     let nodeId = credential.id;
