@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes(app);
+//define util function.
+const exec = util.promisify(require('child_process').exec);
 
 var server = app.listen(3001, function () {
     console.log("app running on port.", server.address().port);
@@ -29,7 +31,7 @@ app.post('/getCredential', function(request, response){
     console.log(request.body);      // your JSON
 
     const util = require('util');
-    const exec = util.promisify(require('child_process').exec);
+    
 
     let channelList = fetchChannelList();
 
