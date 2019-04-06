@@ -17,6 +17,7 @@ lnd nodes at: 157.230.110.159
 - owner: The owner of the credential
 - issuer: The issuer is the entity that verifies the owner.  This may be some kind of KYC check.
 - verifyer: An entity that uses the credental to authorise access to a service.
+- credential: A document that can be provided as a proof which may be countersigned by a third party
 
 # Sample credential
 ```did:ln:02cd3967dcef276d329156530a333c0292b43eacd8d229d1d9637a699e12d514e9```
@@ -61,8 +62,12 @@ The DID subject is comprised of:
 6. issuer provides owner with signed credential
 
 ## verification
-1. verifying node gets the DID document from rovider
+1. verifying node gets the DID document from provider
+### verify the owner of the credential
 2. verifying node challenges provider of document to prove they are the subject (id) in the document : "987638276 sign this message"
 3. provider signs challenge using lnd signmessage
 4. verifying node checks challenge response using lnd verifymessage
+### verify the contents of the credential
 5. verifying node checks document 'proof' attribute using lnd verifymessage
+### verify the revokable status of the credential
+6. verifying node checks that the channel is still active
