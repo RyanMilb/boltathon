@@ -35,8 +35,17 @@ app.post('/getCredential', async function(request, response){
     
 
     let channelList = await fetchChannelList();
-
+//TODO: test this
+    let isChannelVerified = channelList['channels'].includes(unverifiedChannelId)
+    
     let signedCredential = request.body;
+
+    if (isChannelVerified) {
+        response.send(signedCredential);    
+    } else {
+        response.status(500).send('Channel not found');
+    }
+    
     response.send(channelList);    // echo the result back but signed
   });
 
