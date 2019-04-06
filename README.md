@@ -12,14 +12,10 @@ that can be used to verify identity that is countersigned by a third party issue
    Will also allow decentralised storage of credentials to mitigate mass identity theft.
 
 # Infrastructure:
-lnd nodes at:
-owner: 157.230.110.159
-issuer: 139.59.213.116
-verifier:  139.59.213.150
 
-- owner: The owner of the credential
-- issuer: The issuer is the entity that verifies the owner.  This may be some kind of KYC check.
-- verifyer: An entity that uses the credental to authorise access to a service.
+- 157.230.110.159 : owner: The owner of the credential
+- 139.59.213.116 : issuer: The issuer is the entity that verifies the owner.  This may be some kind of KYC check.
+- 139.59.213.150 : verifyer: An entity that uses the credental to authorise access to a service.
 
 - credential: A document that can be provided as a proof which may be countersigned by a third party
 
