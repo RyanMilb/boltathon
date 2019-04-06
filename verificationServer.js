@@ -39,7 +39,7 @@ const lnService = require('ln-service');
 const lnd = lnService.lightningDaemon({
   cert: base64EncodedCert,
   macaroon: base64EncodedMacaroon,
-  socket: '157.230.110.159:9735',
+  socket: '127.0.0.1:10009',
 });
 
 lnService.getWalletInfo({lnd}, (error, result) => {
