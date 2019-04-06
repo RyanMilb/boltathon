@@ -17,6 +17,13 @@ var server = app.listen(3001, function () {
 //     res.status(200).send("success");
 //   });
 
+async function fetchChannelList() {
+    const { stdout, stderr } = await exec('lncli --network=testnet listchannels');
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+    return stdout;
+}
+
 app.post('/getCredential', function(request, response){
     let unverifiedChannelId = request.body.channelId;
     console.log(request.body);      // your JSON
@@ -24,14 +31,10 @@ app.post('/getCredential', function(request, response){
     const util = require('util');
     const exec = util.promisify(require('child_process').exec);
 
-    async function ls() {
-        const { stdout, stderr } = await exec('lncli --network=testnet listchannels');
-        console.log('stdout:', stdout);
-        console.log('stderr:', stderr);
-    }
+    let channelList = fetchChannelList();
 
     let signedCredential = request.body;
-    response.send(stdout);    // echo the result back but signed
+    response.send(channelList);    // echo the result back but signed
   });
 
   //curl -vX POST localhost:3001/getCredential -d @tempExampleTemplate.json --header "Content-Type: application/json"
