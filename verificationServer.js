@@ -44,6 +44,7 @@ const lnd = lnService.lightningDaemon({
 
 lnService.getWalletInfo({lnd}, (error, result) => {
   console.log(result);
+  console.log(error);
 });
 
 async function fetchChannelList() {
