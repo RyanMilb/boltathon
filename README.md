@@ -19,7 +19,7 @@ that can be used to verify identity that is countersigned by a third party issue
 
 - credential: A document that can be provided as a proof which may be countersigned by a third party
 
-# Sample credential
+# Sample Decentralised IDentifier (DID)
 ```did:ln:02cd3967dcef276d329156530a333c0292b43eacd8d229d1d9637a699e12d514e9```
 
 The DID subject is comprised of:
@@ -27,7 +27,7 @@ The DID subject is comprised of:
 * ```ln``` : Method
 * ```02cd3967dcef276d329156530a333c0292b43eacd8d229d1d9637a699e12d514e9``` : node public key (specific-idstring)
 
-## A Simple DID document
+## A Simple DID document object (DDO)
 
 ```
 {
