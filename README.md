@@ -38,6 +38,8 @@ This has been based on extending the existing blockstack.id standard
 // https://core.blockstack.org/v1/dids/did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0
 // where the did is formed from the blockstack id
 // in the zonefile section of https://registrar.blockstack.org/v1/names/runcrypto.id.blockstack
+
+
 {
   "@context": "https://w3id.org/did/v1",
   "id": "did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0",
@@ -50,7 +52,11 @@ This has been based on extending the existing blockstack.id standard
                 "publicKeyHex": "022af593b4449b37899b34244448726aa30e9de13c518f6184a29df40823d82840",
                 "type": "secp256k1"
             },
+            
+            
 // these keys have been added and relate to the boltathon project ////////////////////////////////////
+
+
             {
             
                 //this is the lnd public key used for signing messages
@@ -70,16 +76,20 @@ This has been based on extending the existing blockstack.id standard
                 "publicKeyHex": "031abec42b0df2b5e1044cf55a9294d786ba581ccc1b751af9a7ea63c1a89cf654",
                 "type": "secp256k1"
             }
+            
    //////////////////////////////////////////////////////////////////////////////////////////////////////
+   
   ],
   
   // We also add the authentication section to tell us which of the public keys to use to verify identity in 
   // verify the owner of the credential section of the walkthrough
+  
   "authentication": [
            {"did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0#keys-2"}
   ],
   
   // Adding the channelId here as it seems like the only plausable place for it to go
+  
   "service": [{
     "id": "did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0;channelId",
     "type": "LightningNetworkChannel.0Service",
