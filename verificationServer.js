@@ -49,10 +49,11 @@ process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 
 var lightning = require("bitcoin-lightning-nodejs");
 var request = {
-  msg: msg
+  msg: 'message1'
 };
 lightning.ln.signMessage(request, function(err, response) {
   console.log(response);
+  console.log(err);
 });
 
 async function sendChallenge(credential) {
