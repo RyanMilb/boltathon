@@ -52,10 +52,10 @@ $(document).ready(async function () {
     document.getElementById('section-2').style.display = 'none'
     document.getElementById('section-1').style.display = 'block'
   })
-  $("#btn").click(function (e) {
+  $("#btnCreate").click(function (e) {
     var jsonData = {};
     var dataObj;
-    var dataArray = $("#myform").serializeArray(),
+    var dataArray = $("#createForm").serializeArray(),
       dataObj = {};
 
     $(dataArray).each(function (i, field) {
@@ -67,10 +67,10 @@ $(document).ready(async function () {
       scriptCharset: "utf-8",
       contentType: "application/json; charset=utf-8"
     });
-    $.getJSON('tempExampleTemplate.json', function (data) {
+    $.getJSON('blankCredential.json', function (data) {
       templateJson = data;
       templateJson.id = 'did:ln:' + dataObj['publicNodeId'];
-      templateJson.channelId = dataObj['channelId'];
+      templateJson.service[0].shortChannelId = dataObj['channelId'];
 
       console.log(templateJson);
       //download Updated credential

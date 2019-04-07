@@ -92,7 +92,7 @@ function getPublicKey() {
 //
 // initialise the HTTP server
 //
-var server = app.listen(3001, function () {
+var server = app.listen(3002, function () {
     console.log("app running on port.", server.address().port);
 });
 

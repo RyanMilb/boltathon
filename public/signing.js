@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
     //on button click
-    $("#btn").click(function (e) {
+    $("#btnSign").click(function (e) {
 
 	//initialize data
         var jsonData = {};
         var dataObj;
 
 	//extract the form data
-        var dataArray = $("#myform").serializeArray(),
+        var dataArray = $("#signForm").serializeArray(),
             dataObj = {};
 
 	// for each form field

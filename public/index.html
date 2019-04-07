@@ -16,6 +16,8 @@
 
 
     <script src="scripts.js"></script>
+    <script src="signing.js"></script>
+    <script src="md5.min.js"></script>
 
     <title>Blightning DID GUI</title>
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
@@ -39,7 +41,7 @@
         <div class="tab-content">
             <div id="create" class="tab-pane fade in active">
                 <h3>Create</h3>
-                <form id="myform" type="post">
+                <form id="createForm" class="myform" type="post">
                     <fieldset>
                         <legend>Lightning Club Form</legend>
                         <p>Fill out the form to join the lightning club.</p>
@@ -57,7 +59,7 @@
                         </div>
 
                         <div class="submit">
-                            <input type="submit" id="btn" name="btn" class="btn" value="Download Credential" />
+                            <input type="submit" id="btnCreate" name="btn" class="btn" value="Download Credential" />
                         </div>
                         <a id="downloadAnchorElem" style="display:none"></a>
 
@@ -66,7 +68,7 @@
             </div>
             <div id="sign" class="tab-pane fade">
                 <h3>Sign</h3>
-                <form id="myform" type="post">
+                <form id="signForm" class="myform" type="post">
                     <fieldset>
                         <legend>Lightning Club Form</legend>
                         <p>Fill out the form to verify DID Document.</p>
@@ -94,7 +96,31 @@
             </div>
             <div id="verify" class="tab-pane fade">
                 <h3>Verify</h3>
-                <p>TODO</p>
+                <form id="verifyForm" class="myform" type="post">
+                    <fieldset>
+                        <legend>Lightning Club Form</legend>
+                        <p>Fill out the form to verify DID Document.</p>
+                        <div class="elements">
+                            <label for="name">DID :</label>
+                            <input required="required" type="text" value="did:stack:123456789-0" name="did" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">Signing Public Key</label>
+                            <input required="required" type="text" value="" name="pubKey" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">DidDocument</label>
+                            <textarea required="required" rows="10" cols="30" value="paste document here"
+                                name="json"></textarea>
+                        </div>
+
+                        <div class="submit">
+                            <input type="submit" id="btnVerify" name="btn" class="btn" value="Sign Document" />
+                        </div>
+                        <a id="downloadAnchorElem" style="display:none"></a>
+
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
