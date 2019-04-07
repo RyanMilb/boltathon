@@ -2,14 +2,38 @@
 
 # Lightning Credentials
 
-A prototype Decentralised Identity Document (DID) using the lightning network.  A DID is a credential
-that can be used to verify identity that is countersigned by a third party issuer.
+A prototype extension to the blockstack Decentralised IDentity (DID) document using the lightning network.
+A did:stack document that can be used to verify identity based on a countersigned by a third party issuer.
 
 # Project goal:
 
    Social experience / goal to allow oauth type authentication without accessing third party systems
    that may be used to track online usage.
+   
    Will also allow decentralised storage of credentials to mitigate mass identity theft.
+
+   Provide an alternative to existing revokation methods where data is stored on-chain in transaction data
+   fields, enhancing privacy and efficiency.
+   
+# Justification:
+
+   This method piggybacks on top of the nessecity to create channels for routing payments and so provides
+   value for money as acheiving 2 functions (creating a channel and storing state) with a single transaction.
+   
+   The channel can still be used for making and recieving payments whilst it is open, all the time providing
+   proof that the DID document is valid.
+
+# Use cases:
+
+   Use cases in this example are specific to revokation as that utilises the lightning network, existing methods
+   can be used for persistent DID Documents.
+   
+   1. Subscription membership: open ended contracts that rely on monthly payments can be managed by creating a
+   membership identity that can be used to gain access to club facilities.  Once payments stop then the Identity
+   can be revoked.
+   
+   2. Professional credentials: Professionals who are required to meet quotas on flying time, training, etc, can
+   provided credentials by a governing body which can be revoked.  Drivers licenses that can be revoked.
 
 # Infrastructure:
 
@@ -110,11 +134,11 @@ This has been based on extending the existing blockstack.id standard
 
 # Walkthrough
 ## creation
-1. owner generates credential from form
+1. owner generates credential from form / retrieves them from blockstack API
 2. owner opens channel with issuer
 3. owner adds channelId to credential
 4. owner provides issuer with credential
-5. issuer performs KYC and signs the credential
+5. issuer (performs KYC) and signs the credential using lnd signmessage
 6. issuer provides owner with signed credential
 
 ## verification
