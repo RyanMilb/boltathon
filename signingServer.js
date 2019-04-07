@@ -21,7 +21,7 @@ const pubFile = keyName + '.pub';
 const enc = 'utf-8';
 const hashAlgo = 'md5';
 
-async function getPrivateKey() {
+function getPrivateKey() {
     //
     // try and open the private key file
     //
@@ -29,14 +29,13 @@ async function getPrivateKey() {
 
     try {
 
-        privateKey = fs.readFileSync(privFile, enc);
+        privateKey = fs.readFileSync(privFile);
 
     } catch (e) {
 
         // create keys if not present
         console.log("Could not find keyfile: " + e);
         // generate privKey
-        let privKey
         do {
             privateKey = randomBytes(32)
         } while (!secp256k1.privateKeyVerify(privateKey));
@@ -44,23 +43,24 @@ async function getPrivateKey() {
         console.log("generated keyfile");
 
         // write keyfile
-        fs.writeFileSync(privFile,privateKey,enc);
+        fs.writeFileSync(privFile,privateKey);
+
+        // delete existing public key
+        try {
+    	    fs.unlinkSync(pubFile);
+        } catch (e) {
+            console.log("Can't delete public key as does not exist");
+        }
 
     }
 
     var buf = Buffer.from(privateKey);
-
-    // delete existing public key
-    try {
-    	fs.unlinkSync(pubFile);
-    } catch (e) {
-        console.log("public key does not exist");
-    }
+    console.log('buffer: ' + buf.toString('hex'));
 
     return buf;
 }
 
-async function getPublicKey() {
+function getPublicKey() {
     // load the public key from disk.  This is separate as the private
     // key may be on disk but not the pub key (for some reason) and we don't
     // want to regenerate the private key un-nesseccarily
@@ -69,17 +69,19 @@ async function getPublicKey() {
 
     try {
 
-        publicKey = fs.readFileSync(pubFile, enc);
+        publicKey = fs.readFileSync(pubFile);
 
     } catch (e) {
 
         console.log("public keyfile not found: " + e );
-        var privateKey = await getPrivateKey();
+	//read the private key from disk
+        var privateKey = getPrivateKey();
+	console.log("Private key loaded " + privateKey);
         //generate public key
         publicKey = secp256k1.publicKeyCreate(privateKey);
         console.log("generated public key");
         //write public key to disk
-        fs.writeFileSync(pubFile,publicKey,enc);
+        fs.writeFileSync(pubFile,publicKey);
 
     }
 
@@ -98,16 +100,16 @@ var server = app.listen(3001, function () {
 //
 // sign a message using the local private key
 //
-async function sign(message) {
+function sign(message) {
     // was going to use lncli but verifymessage won't work as you can't specify the public key when verifying message
     console.log("message: " + message);
     var h = hash(message);
     var buf = Buffer.from(h);
     // read the private key from file
-    var privateKey = await getPrivateKey();
+    var privateKey = getPrivateKey();
     // sign the message
     sigObj = secp256k1.sign(buf, privateKey);
-    signature = sigObj.signature.toString();
+    signature = sigObj.signature.toString('hex');
     console.log('signature:' + signature);
     return signature;
 }
@@ -135,12 +137,12 @@ app.post('/getSignature', async function(request, response){
     console.log(message);
     // sign the message
     var h = hash(message);
-    signature = sign(h);
+    signature = sign(h).toString('hex');
     // get the public key associated with the signature
-    pubKey = getPublicKey();
+    pubKey = getPublicKey().toString('hex');
     // create JSON response
     var jsondata = {
-	"message" : message,
+	"messageHash" : h,
 	"type" : hashAlgo,
         "publicKey" : pubKey,
 	"signature" : signature,
@@ -153,7 +155,7 @@ app.post('/verify', async function(request, response){
     // read message from post data
     let message = Buffer.from(request.body.message);
     let signature = request.body.signature;
-    let key = request.body.key;
+    let key = request.body.publicKey;
     console.log(request.body);
     var jsondata = {
       "message" : message,
