@@ -29,14 +29,13 @@ async function getPrivateKey() {
 
     try {
 
-        privateKey = fs.readFileSync(privFile, enc);
+        privateKey = fs.readFileSync(privFile);
 
     } catch (e) {
 
         // create keys if not present
         console.log("Could not find keyfile: " + e);
         // generate privKey
-        let privKey
         do {
             privateKey = randomBytes(32)
         } while (!secp256k1.privateKeyVerify(privateKey));
@@ -44,18 +43,19 @@ async function getPrivateKey() {
         console.log("generated keyfile");
 
         // write keyfile
-        fs.writeFileSync(privFile,privateKey,enc);
+        fs.writeFileSync(privFile,privateKey);
+
+        // delete existing public key
+        try {
+    	    fs.unlinkSync(pubFile);
+        } catch (e) {
+            console.log("Can't delete public key as does not exist");
+        }
 
     }
 
     var buf = Buffer.from(privateKey);
-
-    // delete existing public key
-    try {
-    	fs.unlinkSync(pubFile);
-    } catch (e) {
-        console.log("public key does not exist");
-    }
+    console.log('buffer: ' + buf.toString('utf8'));
 
     return buf;
 }
@@ -69,17 +69,19 @@ async function getPublicKey() {
 
     try {
 
-        publicKey = fs.readFileSync(pubFile, enc);
+        publicKey = fs.readFileSync(pubFile);
 
     } catch (e) {
 
         console.log("public keyfile not found: " + e );
+	//read the private key from disk
         var privateKey = await getPrivateKey();
+	console.log("Private key loaded " + privateKey);
         //generate public key
         publicKey = secp256k1.publicKeyCreate(privateKey);
         console.log("generated public key");
         //write public key to disk
-        fs.writeFileSync(pubFile,publicKey,enc);
+        fs.writeFileSync(pubFile,publicKey);
 
     }
 
