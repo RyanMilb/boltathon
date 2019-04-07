@@ -69,7 +69,18 @@ $(document).ready(async function () {
     });
     $.getJSON('blankCredential.json', function (data) {
       templateJson = data;
-      templateJson.id = 'did:ln:' + dataObj['publicNodeId'];
+      //templateJson.id = 'did:ln:' + dataObj['publicNodeId'];
+      //add new public key
+      var newKey = new Object();
+	newKey['id'] = templateJson.id + "#keys-" + templateJson.publicKey.length;
+	newKey['publicKeyHex'] = dataObj['publicNodeId'];
+	newKey['type'] = "secp256k1";
+      templateJson.publicKey.push(newKey);
+      //add authentication key
+      var authentication = [];
+      authentication.push(newKey);
+      templateJson['authentication'] = authentication;
+      //add the channel id
       templateJson.service[0].shortChannelId = dataObj['channelId'];
 
       console.log(templateJson);
