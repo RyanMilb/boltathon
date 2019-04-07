@@ -29,14 +29,10 @@ async function isChannelActive(channelId) {
 
 app.post('/getCredential', async function(request, response){
     let unverifiedChannelId = request.body.channelId;
-    console.log(request.body);      // your JSON
+    console.log(request.body);
 
-    const util = require('util');
-    
-
-    let channelList = await isChannelActive();
 //TODO: test this
-    let isChannelVerified = channelList.includes(unverifiedChannelId)
+    let isChannelVerified = await isChannelActive(unverifiedChannelId);
     
     let signedCredential = request.body;
 
