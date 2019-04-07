@@ -170,7 +170,12 @@ Test api with this, requires credential in json file.
 ```
 curl -vX POST 157.230.110.159:3001/getCredential -d @tempExampleTemplate.json --header "Content-Type: application/json"
 ```
-
+## Signer
+getSignature - Accepts a string and returns a JSON object consisting of the original message, type of signature, public key of the signer and signature
+Test api with this, requires credential in json file.
+```
+curl -vX POST 139.59.213.116:3001/getSignature -d @tempExampleTemplate.json --header "Content-Type: application/json"
+```
 ## test json
 ```
 {
