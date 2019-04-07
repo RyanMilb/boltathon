@@ -1,10 +1,10 @@
 function showProfile(profile) {
   var person = new blockstack.Person(profile)
   console.log('profile '+ JSON.stringify(person))
-  document.getElementById('heading-name').innerHTML = 'User:' +person.name()
+  document.getElementById('heading-name').innerHTML = 'User:' +person.name();
   // document.getElementById('avatar-image').setAttribute('src', person.avatarUrl())
-  document.getElementById('section-1').style.display = 'none'
-  document.getElementById('section-2').style.display = 'block'
+  document.getElementById('section-1').style.display = 'none';
+  document.getElementById('section-2').style.display = 'block';
 }
 let globalDid = null;
 $(document).ready(function () {
@@ -12,7 +12,7 @@ $(document).ready(function () {
         
         const userData = blockstack.loadUserData()
         showProfile(userData.profile)
-        globalDid = 
+        // globalDid = 
       } else if (blockstack.isSignInPending()) {
         blockstack.handlePendingSignIn()
         .then(userData => {
