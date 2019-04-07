@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8" />
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="signing.js"></script>
+    
+    <title>Sign a supplied DID Document JSON</title>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<body>
+    <div id="header">
+        Boltathon
+    </div>
+
+    <form id="myform" type="post">
+        <fieldset>
+            <legend>Lightning Club Form</legend>
+            <p>Fill out the form to verify DID Document.</p>
+            <div class="elements">
+                <label for="name">DID :</label>
+                <input required="required" type="text" value="did:stack:123456789-0" name="did" size="20" />
+            </div>
+            <div class="elements">
+                <label for="name">Signing Public Key</label>
+                <input required="required" type="text" value="" name="pubKey" size="20" />
+            </div>
+            <div class="elements">
+                <label for="name">DidDocument</label>
+                <textarea required="required" rows="10" cols="60" value="paste document here" name="json"></textarea>
+            </div>
+
+            <div class="submit">
+                <input type="submit" id="btn" name="btn" class="btn" value="Sign Document" />
+            </div>
+            <a id="downloadAnchorElem" style="display:none"></a>
+
+        </fieldset>
+    </form>
+</body>
+
+</html>
