@@ -2,11 +2,15 @@
 <html>
 
 <head>
-        <meta charset="utf-8" />
-        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="scripts.js"></script>
-    
-    <title>Send HTML Form as JSON</title>
+    <meta charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/blockstack@19.1.0-beta.1/dist/blockstack.js"></script>
+
+
+    <script src="scripts.js"></script>
+
+    <title>Blightning DID GUI</title>
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 
@@ -14,31 +18,40 @@
     <div id="header">
         Boltathon
     </div>
+    <div id="section-1">
+        <button id="signin-button">Sign in to blockstack</button>
+    </div>
 
-    <form id="myform" type="post">
-        <fieldset>
-            <legend>Lightning Club Form</legend>
-            <p>Fill out the form to join the lightning club.</p>
-            <div class="elements">
-                <label for="name">Name :</label>
-                <input required="required" type="text" value="Satoshi Nakamoto" name="fname" size="20" />
-            </div>
-            <div class="elements">
-                <label for="name">Public LN node ID</label>
-                <input required="required" type="text" value="" name="publicNodeId" size="20" />
-            </div>
-            <div class="elements">
-                <label for="name">Channel ID</label>
-                <input required="required" type="text" value="523226:1367:0" name="channelId" size="20" />
-            </div>
+    <div id="section-2" style="display: none">
 
-            <div class="submit">
-                <input type="submit" id="btn" name="btn" class="btn" value="Download Credential" />
-            </div>
-            <a id="downloadAnchorElem" style="display:none"></a>
+        <button id="signout-button">Sign out</button>
+        <h1 id="heading-name">Loading User name</h1>
+        <img id="avatar-image" />
+        <form id="myform" type="post">
+            <fieldset>
+                <legend>Lightning Club Form</legend>
+                <p>Fill out the form to join the lightning club.</p>
+                <div class="elements">
+                    <label for="name">Name :</label>
+                    <input required="required" type="text" value="Satoshi Nakamoto" name="fname" size="20" />
+                </div>
+                <div class="elements">
+                    <label for="name">Public LN node ID</label>
+                    <input required="required" type="text" value="" name="publicNodeId" size="20" />
+                </div>
+                <div class="elements">
+                    <label for="name">Channel ID</label>
+                    <input required="required" type="text" value="523226:1367:0" name="channelId" size="20" />
+                </div>
 
-        </fieldset>
-    </form>
+                <div class="submit">
+                    <input type="submit" id="btn" name="btn" class="btn" value="Download Credential" />
+                </div>
+                <a id="downloadAnchorElem" style="display:none"></a>
+
+            </fieldset>
+        </form>
+    </div>
 </body>
 
 </html>

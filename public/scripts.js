@@ -1,4 +1,33 @@
+function showProfile(profile) {
+  var person = new blockstack.Person(profile)
+  console.log('profile '+ JSON.stringify(person))
+  document.getElementById('heading-name').innerHTML = 'User:' +person.name()
+  // document.getElementById('avatar-image').setAttribute('src', person.avatarUrl())
+  document.getElementById('section-1').style.display = 'none'
+  document.getElementById('section-2').style.display = 'block'
+}
+let globalDid = null;
 $(document).ready(function () {
+      if (blockstack.isUserSignedIn()) {
+        
+        const userData = blockstack.loadUserData()
+        showProfile(userData.profile)
+        globalDid = 
+      } else if (blockstack.isSignInPending()) {
+        blockstack.handlePendingSignIn()
+        .then(userData => {
+          showProfile(userData.profile)
+        })
+      }
+      
+    document.getElementById('signin-button').addEventListener('click', function() {
+        blockstack.redirectToSignIn()
+      })
+      document.getElementById('signout-button').addEventListener('click', function() {
+        blockstack.signUserOut(window.location.origin)
+        document.getElementById('section-2').style.display = 'none'
+        document.getElementById('section-1').style.display = 'block'
+      })
     $("#btn").click(function (e) {
         var jsonData = {};
         var dataObj;
