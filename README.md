@@ -34,6 +34,8 @@ A did:stack document that can be used to verify identity based on a countersigne
    
    2. Professional credentials: Professionals who are required to meet quotas on flying time, training, etc, can
    provided credentials by a governing body which can be revoked.  Drivers licenses that can be revoked.
+   
+   3. Third party support: If you're a member of a support and require access to customer systems
 
 # Infrastructure:
 
