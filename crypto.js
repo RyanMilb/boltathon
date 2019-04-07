@@ -13,11 +13,13 @@ do {
   privKey = randomBytes(32)
 } while (!secp256k1.privateKeyVerify(privKey))
 
+
 fs.writeFileSync('private.key',privKey);
 
 importedKey = fs.readFileSync('private.key')
 // get the public key in a compressed format
-const pubKey = secp256k1.publicKeyCreate(importedKey)
+const pubKey = secp256k1.publicKeyCreate(importedKey, false)
+console.log('pubKey: ' + pubKey.toString('hex'));
 
 // sign the message
 const sigObj = secp256k1.sign(msg, importedKey)
