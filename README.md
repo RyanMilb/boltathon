@@ -10,18 +10,20 @@ A did:stack document that can be used to verify identity based on a countersigne
    Social experience / goal to allow oauth type authentication without accessing third party systems
    that may be used to track online usage.
    
-   Will also allow decentralised storage of credentials to mitigate mass identity theft.
+   Will allow decentralised storage of credentials (with owners) to mitigate mass identity theft.
 
    Provide an alternative to existing revokation methods where data is stored on-chain in transaction data
    fields, enhancing privacy and efficiency.
    
 # Justification:
 
-   This method piggybacks on top of the nessecity to create channels for routing payments and so provides
+   This method piggybacks on top of the requirement to create channels for routing payments and so provides
    value for money as acheiving 2 functions (creating a channel and storing state) with a single transaction.
    
    The channel can still be used for making and recieving payments whilst it is open, all the time providing
    proof that the DID document is valid.
+   
+   This revokation method can be bootstrapped to any DID schema, for this example we have used Blockstack DID.
 
 # Use cases:
 
@@ -35,7 +37,9 @@ A did:stack document that can be used to verify identity based on a countersigne
    2. Professional credentials: Professionals who are required to meet quotas on flying time, training, etc, can
    provided credentials by a governing body which can be revoked.  Drivers licenses that can be revoked.
    
-   3. Third party support: If you're a member of a support and require access to customer systems
+   3. Third party support: If you're a member of a support and require access to customer systems the the DID can
+   be issued by your employer and verified by the customer cryptographically. (The employer pubkey will be listed
+   in the customers trusted keystore).
 
 # Infrastructure:
 
@@ -153,6 +157,12 @@ This has been based on extending the existing blockstack.id standard
 5. verifying node checks document 'proof' attribute using lnd verifymessage
 ### verify the revokable status of the credential
 6. verifying node checks that the channel is still active
+
+# Further Enhancements
+As we are embeding details of lightning endpoints we could take this further and charge a verifier for adding friction to
+transactions.  The verifier would request proof and if a valid proof was provided then the owner would be compensated for
+the transaction friction.
+This is important with the banking sector adding more fiction to payments (SCA) to try and combat fraud.
 
 # API
 ## Issuer
