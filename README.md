@@ -113,8 +113,14 @@ This has been based on extending the existing blockstack.id standard
   // We also add the authentication section to tell us which of the public keys to use to verify identity in 
   // verify the owner of the credential section of the walkthrough
   
-  "authentication": [
-           {"did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0#keys-2"}
+"authentication": [
+           
+            {
+                "id" : "lightning_club_did_that_we_dont_have#keys-1",
+                "type": "secp256k1",
+        "controller" : "lightning_club_did_that_we_dont_have",
+                "publicKeyHex": "031abec42b0df2b5e1044cf55a9294d786ba581ccc1b751af9a7ea63c1a89cf654"
+            }
   ],
   
   // Adding the channelId here as it seems like the only plausable place for it to go
