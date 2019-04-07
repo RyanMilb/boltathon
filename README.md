@@ -73,7 +73,6 @@ This has been based on extending the existing blockstack.id standard
 {
   "@context": "https://w3id.org/did/v1",
   "id": "did:stack:v1:12ZSnaEQMFT33itUonYTbkgYQ9AGwbe73c-0",
-  "channelId":523226:1367:0
   
    "publicKey": [
             {
