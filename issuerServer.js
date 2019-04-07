@@ -20,11 +20,11 @@ var server = app.listen(3001, function () {
 //     res.status(200).send("success");
 //   });
 
-async function fetchChannelList() {
-    const { stdout, stderr } = await exec('lightning-cli listpeers');
+async function isChannelActive(channelId) {
+    const { stdout, stderr } = await exec('lightning-cli listchannels ' + channelId);
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
-    return stdout.peers;
+    return stdout.length > 0;
 }
 
 app.post('/getCredential', async function(request, response){
@@ -34,7 +34,7 @@ app.post('/getCredential', async function(request, response){
     const util = require('util');
     
 
-    let channelList = await fetchChannelList();
+    let channelList = await isChannelActive();
 //TODO: test this
     let isChannelVerified = channelList.includes(unverifiedChannelId)
     
