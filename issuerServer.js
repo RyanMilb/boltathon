@@ -24,7 +24,7 @@ async function fetchChannelList() {
     const { stdout, stderr } = await exec('lightning-cli listpeers');
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
-    return stdout;
+    return stdout.peers;
 }
 
 app.post('/getCredential', async function(request, response){
@@ -36,7 +36,7 @@ app.post('/getCredential', async function(request, response){
 
     let channelList = await fetchChannelList();
 //TODO: test this
-    let isChannelVerified = channelList['channels'].includes(unverifiedChannelId)
+    let isChannelVerified = channelList.includes(unverifiedChannelId)
     
     let signedCredential = request.body;
 
