@@ -3,7 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/blockstack@19.1.0-beta.1/dist/blockstack.js"></script>
 
@@ -15,42 +22,81 @@
 </head>
 
 <body>
-    <div id="header">
-        Boltathon
-    </div>
     <div id="section-1">
         <button id="signin-button">Sign in to blockstack</button>
     </div>
 
     <div id="section-2" style="display: none">
-
         <button id="signout-button">Sign out</button>
-        <h1 id="heading-name">Loading User name</h1>
+        <h3 id="heading-name">Loading User name</h3>
         <img id="avatar-image" />
-        <form id="myform" type="post">
-            <fieldset>
-                <legend>Lightning Club Form</legend>
-                <p>Fill out the form to join the lightning club.</p>
-                <div class="elements">
-                    <label for="name">Name :</label>
-                    <input required="required" type="text" value="Satoshi Nakamoto" name="fname" size="20" />
-                </div>
-                <div class="elements">
-                    <label for="name">Public LN node ID</label>
-                    <input required="required" type="text" value="" name="publicNodeId" size="20" />
-                </div>
-                <div class="elements">
-                    <label for="name">Channel ID</label>
-                    <input required="required" type="text" value="523226:1367:0" name="channelId" size="20" />
-                </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#create">Create</a></li>
+            <li><a data-toggle="tab" href="#sign">Sign</a></li>
+            <li><a data-toggle="tab" href="#veryify">Verify</a></li>
+        </ul>
 
-                <div class="submit">
-                    <input type="submit" id="btn" name="btn" class="btn" value="Download Credential" />
-                </div>
-                <a id="downloadAnchorElem" style="display:none"></a>
+        <div class="tab-content">
+            <div id="create" class="tab-pane fade in active">
+                <h3>Create</h3>
+                <form id="myform" type="post">
+                    <fieldset>
+                        <legend>Lightning Club Form</legend>
+                        <p>Fill out the form to join the lightning club.</p>
+                        <div class="elements">
+                            <label for="name">Name :</label>
+                            <input required="required" type="text" value="Satoshi Nakamoto" name="fname" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">Public LN node ID</label>
+                            <input required="required" type="text" value="" name="publicNodeId" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">Channel ID</label>
+                            <input required="required" type="text" value="523226:1367:0" name="channelId" size="20" />
+                        </div>
 
-            </fieldset>
-        </form>
+                        <div class="submit">
+                            <input type="submit" id="btn" name="btn" class="btn" value="Download Credential" />
+                        </div>
+                        <a id="downloadAnchorElem" style="display:none"></a>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div id="sign" class="tab-pane fade">
+                <h3>Sign</h3>
+                <form id="myform" type="post">
+                    <fieldset>
+                        <legend>Lightning Club Form</legend>
+                        <p>Fill out the form to verify DID Document.</p>
+                        <div class="elements">
+                            <label for="name">DID :</label>
+                            <input required="required" type="text" value="did:stack:123456789-0" name="did" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">Signing Public Key</label>
+                            <input required="required" type="text" value="" name="pubKey" size="20" />
+                        </div>
+                        <div class="elements">
+                            <label for="name">DidDocument</label>
+                            <textarea required="required" rows="10" cols="60" value="paste document here"
+                                name="json"></textarea>
+                        </div>
+
+                        <div class="submit">
+                            <input type="submit" id="btn" name="btn" class="btn" value="Sign Document" />
+                        </div>
+                        <a id="downloadAnchorElem" style="display:none"></a>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div id="verify" class="tab-pane fade">
+                <h3>Verify</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+        </div>
     </div>
 </body>
 
