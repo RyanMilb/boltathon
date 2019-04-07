@@ -21,7 +21,7 @@ var server = app.listen(3001, function () {
 //   });
 
 async function fetchChannelList() {
-    const { stdout, stderr } = await exec('lncli --network=testnet listchannels');
+    const { stdout, stderr } = await exec('lightning-cli listpeers');
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
     return stdout;
