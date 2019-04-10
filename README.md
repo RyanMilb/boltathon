@@ -138,12 +138,14 @@ This has been based on extending the existing blockstack.id standard
 ```
 
 # Walkthrough
-## creation
+## create
 1. owner generates credential from form / retrieves them from blockstack API
 2. owner opens channel with issuer
-3. owner adds channelId to credential
+3. owner adds output from funding tx to credential (the htlc utxo)
 4. owner provides issuer with credential
-5. issuer (performs KYC) and signs the credential using lnd signmessage
+
+## sign
+5. issuer (performs KYC) and signs the credential
 6. issuer provides owner with signed credential
 
 ## verification
@@ -155,7 +157,7 @@ This has been based on extending the existing blockstack.id standard
 ### verify the contents of the credential
 5. verifying node checks document 'proof' attribute using lnd verifymessage
 ### verify the revokable status of the credential
-6. verifying node checks that the channel is still active
+6. verifying node checks that the UTXO has not been spent
 
 # Further Enhancements
 As we are embeding details of lightning endpoints we could take this further and charge a verifier for adding friction to
