@@ -18,6 +18,11 @@ depends={
 		"type" : "git",
 		"branch" : "master"
 	},
+	"mocha": {
+		"source" : "https://github.com/mochajs/mocha.git",
+		"type" : "git",
+		"branch" : "master"
+	},
 	"chai": {
 		"source" : "https://github.com/chaijs/chai.git",
 		"type" : "git",
