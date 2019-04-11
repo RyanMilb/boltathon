@@ -1,0 +1,12 @@
+[submodule "public/vendor/JavaScript-MD5"]
+	path = public/vendor/JavaScript-MD5
+	url = https://github.com/blueimp/JavaScript-MD5.git
+	branch = master
+[submodule "public/vendor/did-document"]
+	path = public/vendor/did-document
+	url = https://github.com/AraBlocks/did-document.git
+	branch = master
+[submodule "public/vendor/chai"]
+	path = public/vendor/chai
+	url = https://github.com/chaijs/chai.git
+	branch = master
