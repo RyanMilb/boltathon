@@ -10,3 +10,7 @@
 	path = public/vendor/chai
 	url = https://github.com/chaijs/chai.git
 	branch = master
+[submodule "public/vendor/mocha"]
+	path = public/vendor/mocha
+	url = https://github.com/mochajs/mocha.git
+	branch = master
