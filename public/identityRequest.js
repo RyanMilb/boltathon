@@ -1,16 +1,12 @@
 class IdentityRequest{
 
-    constructor(challenge,dataRequest){
-        this.challenge = challenge;
+    constructor(message,publicKey,hashAlgoritm,signature,dataRequest){
+        this.message = message;
+        this.publicKey = publicKey;
+        this.hashAlgorithm = hashAlgoritm;
+        this.signature = signature;
         this.dataRequest = dataRequest;
     }
-
-    sign(publicKey,privateKey,algoritm){
-        this.publicKey = publicKey;
-        //sign the challenge
-        this.signature = crypto.subtle.sign(algoritm,privateKey,this.challenge);
-    }
-    
 }
 
 module.exports = IdentityRequest;
