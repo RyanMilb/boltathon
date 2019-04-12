@@ -1,5 +1,9 @@
 const IdentityRequest = require("./identityRequest.js");
 const IdentityResponse = require("./identityResponse.js");
+const PublicKey = require("./publicKey.js");
+const Proof = require("./proof.js");
+
+const InvalidSignatureError = require("./invalidSignatureError.js");
 const crypto = require("crypto");
 const { DIDDocument } = require('did-document');
 
@@ -24,7 +28,15 @@ class Wallet{
     *  Returns: a IdentityRequest object
     */
     request(){
-        var req = new IdentityRequest("0123456789abcde",null);
+        // TODO create random message
+        var message = "0123456789abcde";
+        // create proof for request
+        var proof = new Proof(message,this.publicKey,Wallet.HASH,null);
+        proof = _sign(proof);
+        // choose data to prove
+        var data = {};
+        // create request
+        var req = new IdentityRequest(proof,data);
         return req;
     }
 
@@ -40,33 +52,26 @@ class Wallet{
     *  Returns: IdentityResponse
     */
     respond(request){
-        // check the signature in the IdentityRequest to make
-        // sure that we have a valid request
-        var verifier = crypto.createVerify(request.hashAlgorithm);
-        verifier.update(request.message,Wallet.ENCODING);
-        verifier.end();
+        
         // check signature is valid, else throw an error
-        if (verifier.verify(
-            request.publicKey,
-            request.signature)){
+        if (request.proof.isValid()){
                 // create the response
                 // add our part to the message to authenticate ***TODO***
-                var message = request.message + "edcba9876543210";
+                var message = proof.message + "edcba9876543210";
+                //create a proof to include in our response
+                var proof = new Proof(message,this.publicKey,Wallet.HASH,null);
                 // create a message signature
-                var signer = crypto.createSign(request.hashAlgorithm);
-                signer.write(message);
-                signer.end();
-                var signature = signer.sign(this.privateKey,Wallet.ENCODING);
+                proof = _sign(proof);
                 // choose our DID Document from the document store ***TODO***
                 var doc = new DIDDocument(Wallet.TESTDOCUMENT);
-                var res = new IdentityResponse(doc,this.publicKey,message,signature);
+                // compose our response
+                var res = new IdentityResponse(proof,doc);
                 return res;
             }else{
                 // throw an error
                 throw new InvalidSignatureError("The request has an invalid signature");
             };
     }
-
 
     /*
     *  "Let me just check that for you"
@@ -77,15 +82,23 @@ class Wallet{
     *  Accepts: IdentityRequest, IdentityResponse
     *  Returns: Boolean
     */
-    check(request,response){
+    verify(IdentityRequest,IdentityResponse){
         return "TODO";
-    };
+    }
 
+    _sign(proof){
+        var signer = crypto.createSign(proof.hashAlgorithm);
+        signer.write(proof.message);
+        signer.end();
+        proof.signature = signer.sign(this.privateKey,Wallet.ENCODING);
+        return proof;
+    }
+    
 }
 
 Wallet.ENCODING = 'binary';
 Wallet.HASH = 'SHA256';
-Wallet.HASH = 'secp256k1';
+Wallet.EC = 'secp256k1';
 
 /*
 *  Placing this here for testing

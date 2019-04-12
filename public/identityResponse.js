@@ -1,12 +1,16 @@
 class IdentityResponse{
 
-    constructor(diddocument,publicKey,message,signature){
+    constructor(request, proof, diddocument){
+        // The identityRequest assoiated with this proof
+        this.request = request;
+        // The proof that was requested
+        this.proof = proof;
+        //  The document fufilling the data request
         this.document = diddocument;
-        this.publicKey = publicKey;
-        this.message = message;
-        this.signature = signature;
     }
     
 }
 
-module.exports = IdentityResponse;
+module.exports = {
+    IdentityResponse: IdentityResponse
+}

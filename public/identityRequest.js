@@ -1,12 +1,17 @@
 class IdentityRequest{
 
-    constructor(message,publicKey,hashAlgoritm,signature,dataRequest){
-        this.message = message;
-        this.publicKey = publicKey;
-        this.hashAlgorithm = hashAlgoritm;
-        this.signature = signature;
+    constructor(proof,dataRequest){
+        // proof of the originator of the request
+        this.proof = proof;
+        // request for data from the owner
         this.dataRequest = dataRequest;
+    }
+
+    getProof(){
+        return this.proof;
     }
 }
 
-module.exports = IdentityRequest;
+module.exports = {
+    IdentityRequest: IdentityRequest
+}
