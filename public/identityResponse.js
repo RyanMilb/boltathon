@@ -8,7 +8,6 @@ class IdentityResponse{
         //  The document fufilling the data request
         this.document = diddocument;
     }
-    
 }
 
 module.exports = IdentityResponse;

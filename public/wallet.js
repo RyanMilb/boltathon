@@ -82,8 +82,24 @@ class Wallet{
     *  Accepts: IdentityRequest, IdentityResponse
     *  Returns: Boolean
     */
-    verify(IdentityRequest,IdentityResponse){
-        return "TODO";
+    verify(identityResponse){
+
+        let request = identityResponse.request;
+        let requestProof = request.proof;
+        let responseProof = identityResponse.proof;
+        
+        // check that we issued the request
+        if (requestProof.publicKey == this.publicKey &&
+        // check that the request proof is valid
+        requestProof.isValid() &&
+        // check that the response message includes our request message
+        responseProof.message.includes(requestProof.message) &&
+        // check that the response proof is valid
+        responseProof.isValid()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     _sign(proof){

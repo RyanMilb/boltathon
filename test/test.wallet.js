@@ -94,47 +94,47 @@ describe('hooks', function(){
 
         it("should verify a valid IdentityRequest and IdentityResponse without DIDDocument",function(){
             // verifier requests a proof
-            let request = new IdentityRequest(validVerifierProof,null);
+            let request = new IdentityRequest(validVerifierProof, null);
             // owner reposnds with proof
-            let response = new IdentityResponse(validOwnerProof,null);
+            let response = new IdentityResponse(request, validOwnerProof, null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify(request,response)).to.equal(true);
+            chai.expect(verifier.verify(response)).to.equal(true);
         });
 
         it("should not verify an invalid signature on request", function(){
             // verifier requests a proof
             let request = new IdentityRequest(invalidRequestSignature,null);
             // owner responds
-            let response = new IdentityResponse(validOwnerProof,null);
+            let response = new IdentityResponse(request, validOwnerProof, null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidSignatureError);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidSignatureError);
         });
 
         it("should not verify an invalid signature on response", function(){
             // verifier requests a proof
             let request = new IdentityRequest(validProof,null);
             // owner responds
-            let response = new IdentityResponse(invalidSignatureProof,null);
+            let response = new IdentityResponse(request, invalidSignatureProof,null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidSignatureError);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidSignatureError);
         });
 
         it("should not verify an invalid signature on request and response", function(){
             // verifier requests a proof
             let request = new IdentityRequest(invalidRequestSignature,null);
             // owner responds
-            let response = new IdentityResponse(invalidResponseSignature,null);
+            let response = new IdentityResponse(request, invalidResponseSignature,null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidSignatureError);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidSignatureError);
         });
 
         it("should not verify if IdentityRequest wasn't signed with our key", function(){
             // verifier requests a proof
             let request = new IdentityRequest(validIssuerProof,null);
             // owner responds
-            let response = new IdentityResponse(validOwnerProof,null);
+            let response = new IdentityResponse(request, validOwnerProof,null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidSignatureError);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidSignatureError);
         });
 
         it("should not verify if the message in IdentityResponse and IdentityRequest are the same",function(){
@@ -143,17 +143,17 @@ describe('hooks', function(){
             // verifier requests a proof
             let request = new IdentityRequest(validOwnerProof,null);
             // owner responds
-            let response = new IdentityResponse(invalidResponseMessage,null);
+            let response = new IdentityResponse(request, invalidResponseMessage,null);
             // verifier verifies the request and response
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidMessageError);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidMessageError);
         })
 
         it("should not verify if message in IdentityResponse does not begin with the message in IdentityRequest", function(){
             //message should not match the request message
             let request = new IdentityRequest(validVerifierProof,null);
             //message should not match the request message
-            let reponse = new IdentityResponse(invalidOwner,null);
-            chai.expect(verifier.verify.bind(request,response)).to.throw(InvalidIdentityRequestError);
+            let reponse = new IdentityResponse(request, invalidOwner,null);
+            chai.expect(verifier.verify.bind(response)).to.throw(InvalidIdentityRequestError);
         });
     });
 });
