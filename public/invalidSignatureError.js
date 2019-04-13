@@ -4,3 +4,5 @@ class InvalidSignatureError extends Error {
         this.name = "InvalidSignatureError";
     }
 }
+
+module.exports = { InvalidSignatureError : InvalidSignatureError }

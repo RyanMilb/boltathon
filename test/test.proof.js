@@ -22,8 +22,9 @@ describe('hooks', function(){
     let invalidSignatureProof = new Proof(verifierMessage,verifierPubKey,hashAlgorithm,ownerSignature);
     let invalidMessageProof = new Proof(verifierMessage,ownerPubKey,hashAlgorithm,ownerSignature);
 
-    describe("_isValidProof", function(){
+    describe("isValid", function(){
         it("should return true for a valid proof",function(){
+            console.log(validProof);
             chai.expect(validProof.isValid()).to.equal(true);
         });
         it("should return false for a invalid public key",function(){

@@ -1,3 +1,4 @@
+var crypto = require('crypto');
 /*
 * A Proof encapsulates the data required to validate the identity
 * of a wallet owner
@@ -29,7 +30,7 @@ class Proof{
         var verifier = crypto.createVerify(this.hashAlgorithm);
         verifier.update(this.message);
         verifier.end();
-        return verifier.verify(this.publicKey,this.signature);
+        return verifier.verify(this.publicKey.hex,this.signature);
     }
 
 };
