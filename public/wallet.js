@@ -99,7 +99,6 @@ class Wallet{
 Wallet.ENCODING = 'binary';
 Wallet.HASH = 'SHA256';
 Wallet.EC = 'secp256k1';
-
 /*
 *  Placing this here for testing
 */
@@ -136,5 +135,5 @@ Wallet.TESTDOCUMENT = {
         }
     ]
 }
-  
-module.exports = { Wallet: Wallet };
+
+module.exports = { Wallet : Wallet };

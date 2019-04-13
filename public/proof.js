@@ -32,6 +32,6 @@ class Proof{
         return verifier.verify(this.publicKey,this.signature);
     }
 
-}
+};
 
-module.exports = { Proof: Proof }
+module.exports = Proof;

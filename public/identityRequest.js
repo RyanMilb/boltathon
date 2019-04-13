@@ -11,7 +11,3 @@ class IdentityRequest{
         return this.proof;
     }
 }
-
-module.exports = {
-    IdentityRequest: IdentityRequest
-}

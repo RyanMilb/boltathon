@@ -4,8 +4,7 @@ class PublicKey{
         this.hex = hex;
         this.algorithm = algorithm;
     }
-}
 
-module.exports = {
-    PublicKey: PublicKey
-}
+};
+
+module.exports = PublicKey;

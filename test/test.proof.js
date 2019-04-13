@@ -3,23 +3,24 @@ const chai = require('chai');
 
 const Proof = require("../public/proof.js");
 const InvalidSignatureError = require("../public/invalidSignatureError.js");
-
 const PublicKey = require('../public/publicKey.js');
 
 // load test data from file
 var testDataDir = './test/data'
 let ownerPubKey = new PublicKey(fs.readFileSync(testDataDir + '/secp256k1-owner.pub'),'secp256k1');
 let verifierPubKey = new PublicKey(fs.readFileSync(testDataDir + '/secp256k1-verifier.pub'),'secp256k1');
-let challengeMessage = fs.readFileSync(testDataDir + '/challenge.txt');
-let challengeSignature = fs.readFileSync(testDataDir + '/challenge.sig');
+let verifierMessage = fs.readFileSync(testDataDir + '/verifier.txt');
+let verifierSignature = fs.readFileSync(testDataDir + '/verifier.sig');
+let ownerMessage = fs.readFileSync(testDataDir + '/owner.txt');
+let ownerSignature = fs.readFileSync(testDataDir + '/owner.sig');
 let hashAlgorithm = "SHA256";
 
 describe('hooks', function(){
 
-    let validProof = new Proof(challengeMessage,issuerPubKey,hashAlgorithm,challengeSignature);
-    let invalidPubKeyProof = new Proof(challengeMessage,ownerPubKey,hashAlgorithm,challengeSignature);
-    let invalidSignatureProof = new Proof(challengeMessage,issuerPubKey,hashAlgorithm,respondSignature);
-    let invalidMessageProof = new Proof(challengeMessage,ownerPubKey,hashAlgorithm,respondSignature);
+    let validProof = new Proof(verifierMessage,verifierPubKey,hashAlgorithm,verifierSignature);
+    let invalidPubKeyProof = new Proof(verifierMessage,ownerPubKey,hashAlgorithm,verifierSignature);
+    let invalidSignatureProof = new Proof(verifierMessage,verifierPubKey,hashAlgorithm,ownerSignature);
+    let invalidMessageProof = new Proof(verifierMessage,ownerPubKey,hashAlgorithm,ownerSignature);
 
     describe("_isValidProof", function(){
         it("should return true for a valid proof",function(){

@@ -33,10 +33,10 @@ var verifierSignature = fs.readFileSync(testDataDir + '/verifier.sig');
 
 var ownerMessage = fs.readFileSync(testDataDir + '/owner.txt');
 var ownerSignature =fs.readFileSync(testDataDir + '/owner.sig');
-var ownerInvalidNMessageSame = fs.readFileSync(testDataDir + '/owner-invalid-same.txt');
-ver ownerInvalidSignatureSame = fs.readFileSync(testDataDir + '/owner-invalid-same.sig');
-var ownerInvalidNMessageDiff =fs.readFileSync(testDataDir + '/owner-invalid-diff.txt');
-var ownerInvalidSignatureDiff =fs.readFileSync(testDataDir + '/owner-invalid-diff.sig');
+var ownerInvalidNMessageSame = fs.readFileSync(testDataDir + '/invalid-owner-same.txt');
+var ownerInvalidSignatureSame = fs.readFileSync(testDataDir + '/invalid-owner-same.sig');
+var ownerInvalidNMessageDiff = fs.readFileSync(testDataDir + '/invalid-owner-diff.txt');
+var ownerInvalidSignatureDiff =fs.readFileSync(testDataDir + '/invalid-owner-diff.sig');
 
 describe('hooks', function(){
 
@@ -63,7 +63,7 @@ describe('hooks', function(){
     // valid proof
     let validOwnerProof = new Proof(ownerMessage,ownerPubKey,hashAlgorithm,ownerSignature);
     // invalid requests
-    let invalidResponseSignature = new Proof(ownerInvalidNMessage,verifierPubKey,hashAlgorithm,ownerSignature);
+    let invalidResponseSignature = new Proof(ownerInvalidNMessageSame,verifierPubKey,hashAlgorithm,ownerSignature);
 
     /*
     *  Responses provided by issuer
@@ -92,7 +92,7 @@ describe('hooks', function(){
 
     describe("verify",function(){
 
-        it("should verify a valid IdentityRequest and IdentityResponse without DIDDocument",function{
+        it("should verify a valid IdentityRequest and IdentityResponse without DIDDocument",function(){
             // verifier requests a proof
             let request = new IdentityRequest(validVerifierProof,null);
             // owner reposnds with proof

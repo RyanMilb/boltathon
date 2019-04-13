@@ -10,7 +10,3 @@ class IdentityResponse{
     }
     
 }
-
-module.exports = {
-    IdentityResponse: IdentityResponse
-}
