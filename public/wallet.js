@@ -52,7 +52,6 @@ class Wallet{
     *  Returns: IdentityResponse
     */
     respond(request){
-        
         // check signature is valid, else throw an error
         if (request.proof.isValid()){
                 // create the response
