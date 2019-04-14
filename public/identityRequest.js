@@ -12,4 +12,4 @@ class IdentityRequest{
     }
 }
 
-module.exports = { IdentityRequest : IdentityRequest }
+module.exports = IdentityRequest;

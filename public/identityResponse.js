@@ -11,4 +11,4 @@ class IdentityResponse{
     
 }
 
-module.exports = { IdentityResponse : IdentityResponse }
+module.exports = IdentityResponse;

@@ -32,7 +32,7 @@ class Wallet{
         var message = "0123456789abcde";
         // create proof for request
         var proof = new Proof(message,this.publicKey,Wallet.HASH,null);
-        proof = _sign(proof);
+        proof = this._sign(proof);
         // choose data to prove
         var data = {};
         // create request
@@ -52,16 +52,15 @@ class Wallet{
     *  Returns: IdentityResponse
     */
     respond(request){
-        
         // check signature is valid, else throw an error
         if (request.proof.isValid()){
                 // create the response
                 // add our part to the message to authenticate ***TODO***
-                var message = proof.message + "edcba9876543210";
+                var message = request.proof.message + "edcba9876543210";
                 //create a proof to include in our response
                 var proof = new Proof(message,this.publicKey,Wallet.HASH,null);
                 // create a message signature
-                proof = _sign(proof);
+                proof = this._sign(proof);
                 // choose our DID Document from the document store ***TODO***
                 var doc = new DIDDocument(Wallet.TESTDOCUMENT);
                 // compose our response
