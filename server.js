@@ -6,4 +6,4 @@ var cors = require("cors");
 app.use(cors());
 app.use(express.static('public'))
 
-app.listen(port, () => console.log(`Identity Owner Webserver starting on ${port}!`))
+app.listen(port, () => console.log(`Identity Owner Webserver starting at http://localhost:${port}`))
