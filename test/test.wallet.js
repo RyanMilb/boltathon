@@ -35,16 +35,16 @@ describe('wallet', function(){
     describe("request",function(){
         it("should return a IdentityRequest object", function(){
             //verifier requests a proof
-            chai.expect(wallet.request()).to.be.an.instanceOf(IdentityRequest);
+            chai.expect(this.wallet.request()).to.be.an.instanceOf(IdentityRequest);
         })
     });
 
     describe("respond",function(){
         it("should return an IdentityResponse object", function(){
             // verifier requests a proof
-            let req = this.testbuilder.getRequest("validVerifier");
+            let req = this.testbuilder.getRequest("valid");
             //owner responds
-            chai.expect(wallet.respond(req)).to.be.an.instanceOf(IdentityResponse);
+            chai.expect(this.wallet.respond(req)).to.be.an.instanceOf(IdentityResponse);
         })
     });
 });

@@ -16,7 +16,9 @@ class IdentityResponse{
     };
 
     isValid(){
-        return this.request.isValid() && this.proof.isValid();
+        return this.request.isValid() &&
+        this.proof.isValid() &&
+        this.proof.message.includes(this.request.proof.message);
     }
 }
 
