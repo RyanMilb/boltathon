@@ -3,7 +3,7 @@ const IdentityResponse = require("./identityResponse.js");
 const PublicKey = require("./publicKey.js");
 const Proof = require("./proof.js");
 
-const InvalidSignatureError = require("./invalidSignatureError.js");
+const InvalidProofError = require("./invalidProofError.js");
 const crypto = require("crypto");
 const { DIDDocument } = require('did-document');
 
@@ -68,7 +68,7 @@ class Wallet{
                 return res;
             }else{
                 // throw an error
-                throw new InvalidSignatureError("The request has an invalid signature");
+                throw new InvalidProofError("The request has an invalid signature");
             };
     }
 
@@ -81,11 +81,12 @@ class Wallet{
     *  Accepts: IdentityRequest, IdentityResponse
     *  Returns: Boolean
     */
-    verify(identityResponse){
+    verify(resp){
 
-        let request = identityResponse.request;
+        console.log(resp);
+        let request = resp.request;
         let requestProof = request.proof;
-        let responseProof = identityResponse.proof;
+        let responseProof = resp.proof;
         
         // check that we issued the request
         if (requestProof.publicKey == this.publicKey &&
@@ -95,10 +96,10 @@ class Wallet{
         responseProof.message.includes(requestProof.message) &&
         // check that the response proof is valid
         responseProof.isValid()){
-            return true;
         } else {
-            return false;
+            throw new InvalidSignatureError("Could to verify signature");
         }
+        return true;
     }
 
     _sign(proof){

@@ -27,12 +27,15 @@ class Proof{
     *  Returns boolean
     */
     isValid(){
-        var verifier = crypto.createVerify(this.hashAlgorithm);
-        verifier.update(this.message);
-        verifier.end();
-        return verifier.verify(this.publicKey.hex,this.signature);
+        return Proof.isValid(this.message,this.publicKey.hex,this.signature,this.hashAlgorithm);
     }
 
 };
 
+Proof.isValid = function(message,publicKeyHex,signature,hashAlgorithm){
+    var verifier = crypto.createVerify(hashAlgorithm);
+    verifier.update(message);
+    verifier.end();
+    return verifier.verify(publicKeyHex,signature);
+}
 module.exports = Proof;

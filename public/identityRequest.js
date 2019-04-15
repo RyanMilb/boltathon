@@ -1,3 +1,5 @@
+const Proof = require("../public/proof.js");
+
 class IdentityRequest{
 
     constructor(proof,dataRequest){
@@ -7,8 +9,8 @@ class IdentityRequest{
         this.dataRequest = dataRequest;
     }
 
-    getProof(){
-        return this.proof;
+    isValid(){
+        return this.proof.isValid();
     }
 }
 
