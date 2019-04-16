@@ -1,9 +1,8 @@
-#myform {
+.myform {
     margin: 0 auto;
     width: 500px;
     padding: 14px;
 }
-
 label {
     width: 10em;
     float: left;

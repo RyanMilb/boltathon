@@ -1,0 +1,33 @@
+{
+  "name": "boltathon",
+  "version": "1.0.0",
+  "description": "A prototype extension to the blockstack Decentralised IDentity (DID) document using the lightning network.\r A did:stack document that can be used to verify identity based on a countersigned by a third party issuer.",
+  "main": "verify.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "browserify": "^16.2.3",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "did-document": "^0.6.2",
+    "did-uri": "^0.3.0",
+    "express": "^4.16.4",
+    "mocha": "^6.1.2",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanMilb/boltathon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanMilb/boltathon/issues"
+  },
+  "homepage": "https://github.com/RyanMilb/boltathon#readme"
+}
